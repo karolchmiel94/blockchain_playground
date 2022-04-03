@@ -43,10 +43,11 @@ contract Election {
         votingEnd = votingEnd_;
     }
 
-    function placeVote(uint256 candidate) public canVote votingInProgress {
+    function placeVote(uint256 candidate) public canVote {
         require(candidateList.length > candidate, "Invalid candidate");
         voted[msg.sender] = true;
         votesCount[candidate]++;
+        emit Vote(candidate);
     }
 
     function closeVoting() public organizerOnly {
