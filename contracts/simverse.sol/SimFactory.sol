@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.10 <0.9.0;
 
-contract SimFactory {
+import "@openzeppelin/contracts/ownership/Ownable.sol";
+
+contract SimFactory is Ownable {
     event NewSim(uint256 simId, string name, uint256 dna);
 
     uint256 private dnaDigits = 16;
@@ -12,10 +14,10 @@ contract SimFactory {
         uint256 dna;
     }
 
-    Sim[] public Sims;
+    Sim[] public sims;
 
     function _createSim(string _name, uint256 _dna) private {
-        uint256 id = Sims.push(Sim(_name, _dna)) - 1;
+        uint256 id = sims.push(Sim(_name, _dna)) - 1;
         emit NewSim(id, _name, _dna);
     }
 
